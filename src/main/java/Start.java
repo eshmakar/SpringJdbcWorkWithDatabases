@@ -7,6 +7,10 @@ public class Start {
         CourseDAO courseDAO = context.getBean(CourseDAO.class);
         System.out.println(courseDAO.findById(5));
 
+        for (Course course: courseDAO.findAll()){
+            System.out.println(course);
+        }
+
         context.close();
     }
 }

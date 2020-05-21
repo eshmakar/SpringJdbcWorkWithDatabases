@@ -3,7 +3,9 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 class CourseRowMapper implements RowMapper<Course> {
 
@@ -40,6 +42,17 @@ public class JdbcCourseDAO implements CourseDAO {
     }
 
     public List<Course> findAll() {
-        return null;
+        List<Course> courses = new ArrayList<Course>();
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(SQL_SELECT_COURSE);
+
+        for (Map<String, Object> row: rows){
+                Course c = new Course();
+                c.setId((Integer) row.get("id"));
+                c.setTitle((String) row.get("title"));
+                c.setLength((Integer) row.get("length"));
+                c.setDescription((String) row.get("description"));
+                courses.add(c);
+        }return courses;
+
     }
 }
