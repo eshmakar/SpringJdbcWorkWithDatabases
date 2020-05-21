@@ -1,3 +1,4 @@
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -42,7 +43,7 @@ public class JdbcCourseDAO implements CourseDAO {
     }
 
     public List<Course> findAll() {
-        List<Course> courses = new ArrayList<Course>();
+/*        List<Course> courses = new ArrayList<Course>();
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(SQL_SELECT_COURSE);
 
         for (Map<String, Object> row: rows){
@@ -52,7 +53,12 @@ public class JdbcCourseDAO implements CourseDAO {
                 c.setLength((Integer) row.get("length"));
                 c.setDescription((String) row.get("description"));
                 courses.add(c);
-        }return courses;
+        }return courses;*/
+
+List <Course> courses = getJdbcTemplate().query(SQL_SELECT_COURSE, new BeanPropertyRowMapper(Course.class));
+
+
+return courses;
 
     }
 }
